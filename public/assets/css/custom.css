@@ -1,0 +1,69 @@
+hr {
+	stroke-width: 0.5px;
+	stroke: rgba(0, 0, 0, 0.30);
+	opacity: 0.1;
+}
+.text-align-center {
+	text-align: center;
+}
+.btn {
+	border-radius: 7px;
+	padding: 8px 40px;
+}
+.badge {
+	width: 100px;
+	padding: 8px 0 !important;
+	align-items: center;
+	border-radius: 32px;
+}
+.card-title {
+	font-weight: bold;
+}
+th {
+	background: #F8F8F8 !important;
+}
+thead, tbody, tfoot, tr, td, th {
+	padding: 14px !important;
+}
+tr:last-child {
+    border-bottom: #fff;
+}
+/*mobile only*/
+@media only screen and (max-width: 767px) {
+	.w-25, .w-75{
+		width: 100% !important;
+	}
+	.mobile-w-100{
+		width: 100%;
+	}
+}
+span.required {
+	color:red;
+}
+
+.ticketType, .payMode, .verification
+{
+	display:inline-block;
+	padding:6px 20px;
+	border:1px solid grey;
+	color:black;
+	cursor:pointer;
+}
+
+.ticketType.selected, .payMode.selected, .verification.selected
+{
+	background: #193c62;
+	color:white;
+}
+.font-weight-bold{
+	font-weight: 600;
+	padding-top: 10px;
+}
+div.calcField
+{
+	background-color: #e3e3e3;
+  display: inline-block;
+  width: 194px;
+  height: 35px;
+  border-radius: 5px;
+}
