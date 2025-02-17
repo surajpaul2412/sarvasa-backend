@@ -1,7 +1,7 @@
 <div class="sidebar">
     <div class="sidebar-header">
         <a href="{{ url('/') }}" class="">
-            <img src="{{ asset('assets/img/logo.svg') }}" width="100%">
+            <img src="{{ asset('assets/img/Logo.svg') }}" width="100%">
         </a>
     </div><!-- sidebar-header -->
     <div id="sidebarMenu" class="sidebar-body">
