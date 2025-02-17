@@ -82,15 +82,15 @@
                         @endif
                     @endif
                 </p>
-                <h6><a class="text-capitalize" href="{{ url('/pages/profile') }}">{{Auth::user()->name}}</a></h6>
+                <h6><a class="text-capitalize" href="">{{Auth::user()->name}}</a></h6>
 
             </div><!-- sidebar-footer-body -->
             <a id="sidebarFooterMenu" href="" class="dropdown-link"><i class="ri-arrow-down-s-line"></i></a>
         </div><!-- sidebar-footer-top -->
         <div class="sidebar-footer-menu">
             <nav class="nav">
-                <a href=""><i class="ri-edit-2-line"></i> My Profile</a>
-                <a href=""><i class="ri-user-settings-line"></i> Settings</a>
+                <a href=""></a>
+                <a href=""></a>
                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="ri-logout-box-r-line"></i> Log Out
                 </a>

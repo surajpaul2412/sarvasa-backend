@@ -14,7 +14,7 @@
         </a>
         <div class="dropdown-menu dropdown-menu-end mt-10-f">
             <div class="dropdown-menu-body">
-                <div class="avatar avatar-xl online mb-3"><img src="{{ asset('assets/img/img6.jpg') }}" alt=""></div>
+                <!-- <div class="avatar avatar-xl online mb-3"><img src="{{ asset('assets/img/img6.jpg') }}" alt=""></div> -->
                 <h5 class="mb-1 text-dark fw-semibold">{{Auth::user()->name}}</h5>
                 <nav class="nav">
                     <!-- Showing error while ADMIN role active -->

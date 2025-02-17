@@ -5,6 +5,17 @@ Enquiries
 @endsection
 
 @section('style')
+<style>
+.flex-1{
+    display:none;
+}
+.update-stage {
+    color: #000; /* Text color */
+    border: none;
+    padding: 5px;
+    border-radius: 4px;
+}
+</style>
 @endsection
 
 @section('content')
@@ -13,7 +24,7 @@ Enquiries
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <form method="get" action="">
         <div style="display:inline-flex;margin-right:10px;width: 400px;">
-            <input class="form-control" type="text" name="search" placeholder="search by name, mob, location, loan amt & stage">
+            <input class="form-control" type="text" name="search" placeholder="search by mobile number">
         </div>
 
         <button type="submit" class="btn btn-primary" title="Search">
@@ -60,8 +71,8 @@ Enquiries
 									    // Get the background color for the current stage, default to transparent
 									    $backgroundColor = $stageColors[$enquiry->stage] ?? 'transparent';
 									@endphp
-                                    <td style="background: {{ $backgroundColor }};">
-									    <select class="update-stage" data-id="{{ $enquiry->id }}" style="background: transparent;">
+                                    <td>
+									    <select class="update-stage" data-id="{{ $enquiry->id }}" style="background: {{ $backgroundColor }};">
 									        <option value="Fresh Lead" {{ $enquiry->stage == 'Fresh Lead' ? 'selected' : '' }}>Fresh Lead</option>
 									        <option value="Not Interested" {{ $enquiry->stage == 'Not Interested' ? 'selected' : '' }}>Not Interested</option>
 									        <option value="Converted" {{ $enquiry->stage == 'Converted' ? 'selected' : '' }}>Converted</option>
@@ -81,7 +92,7 @@ Enquiries
                         </table>
 
                         <div class="d-flex justify-content-center my-3">
-                            {{ $enquiries->withQueryString()->links() }}
+                            {{ $enquiries->render() }}
                         </div>
                     </div>
                 </div>
@@ -94,51 +105,50 @@ Enquiries
 
 @section('script')
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.update-stage').forEach(function (dropdown) {
-            dropdown.addEventListener('change', function () {
-                const td = this.closest('td');
-                const stage = this.value;
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.update-stage').forEach(function (dropdown) {
+        dropdown.addEventListener('change', function () {
+            const stage = this.value;
 
-                // Update the background color based on the selected stage
-                if (stage === 'Fresh Lead') {
-                    td.style.background = 'yellow';
-                } else if (stage === 'Not Interested') {
-                    td.style.background = 'red';
-                } else if (stage === 'Converted') {
-                    td.style.background = 'green';
-                } else if (stage === 'Follow Up') {
-                    td.style.background = 'blue';
+            // Update only the select dropdown's background color
+            if (stage === 'Fresh Lead') {
+                this.style.background = 'yellow';
+            } else if (stage === 'Not Interested') {
+                this.style.background = 'red';
+            } else if (stage === 'Converted') {
+                this.style.background = 'green';
+            } else if (stage === 'Follow Up') {
+                this.style.background = 'blue';
+            } else {
+                this.style.background = 'transparent';
+            }
+
+            // Perform your AJAX call here to update the stage in the database
+            fetch(`{{ url('admin/enquiries/update-stage') }}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    id: this.dataset.id,
+                    stage: stage
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Stage updated successfully.');
                 } else {
-                    td.style.background = 'transparent';
+                    alert('Failed to update stage.');
                 }
-
-                // Perform your AJAX call here to update the stage in the database
-                fetch(`{{ url('admin/enquiries/update-stage') }}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    body: JSON.stringify({
-                        id: this.dataset.id,
-                        stage: stage
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('Stage updated successfully.');
-                    } else {
-                        alert('Failed to update stage.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred.');
-                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred.');
             });
         });
     });
+});
 </script>
 @endsection
